@@ -10,7 +10,7 @@ const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaAp
 const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
 return (
-    <div className="overflow-hidden bg-gray-100 py-4" ref={emblaRef}>
+    <div className=" relative overflow-hidden bg-gray-100 py-4" ref={emblaRef}>
       <div className="flex">
         {Array.isArray(promotions) && promotions.map((promo) => (
           <div

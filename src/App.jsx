@@ -59,7 +59,11 @@ function App() {
       <ProductList products={products} cart={cart} onChange={handleAddProduct} />
       <PersonalDataForm personalData={personalData} onChange={setPersonalData} />
       <PaymentMethods selected={payment} onChange={setPayment} />
-      <CartBar total={total} onClick={() => setShowSummary(true)} />
+      <CartBar
+         total={total}
+         onClick={() => setShowSummary(true)}
+         key={cart.length + total} 
+      />
       <SummaryModal
         visible={showSummary}
         onClose={() => setShowSummary(false)}

@@ -1,4 +1,6 @@
 const CartBar = ({ total, onClick }) => {
+    console.log('CartBar total:', total);
+
     return (
     <div className="fixed bottom-0 left-0 right-0 bg-green-600 text-white px-4 py-3 flex justify-between items-center shadow-lg">
       <span>Total: ${total}</span>
