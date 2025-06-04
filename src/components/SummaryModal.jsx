@@ -49,7 +49,7 @@ export default function SummaryModal({ visible, onClose, cart, total, payment, p
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-green-600 text-white px-4 py-2 rounded-lg font-bold"
+            className="bg-orange-600 text-white px-4 py-2 rounded-lg font-bold"
           >
             Enviar por WhatsApp
           </a>
