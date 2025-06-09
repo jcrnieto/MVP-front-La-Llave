@@ -12,29 +12,30 @@ const CreateProductModal = ({ onClose, onSave }) => {
 
     // 1. Generar nombre único para la imagen
     const fileName = `${Date.now()}-${image.name}`;
+    const filePath = `products/${fileName}`;
 
-    //2. Subir a Supabase Storage
-    const { data, error } = await supabase.storage
-    .from("products-la-llave") // <-- nombre de tu bucket
-    .upload(fileName, image);
+    // 2. Subir la imagen al bucket
+    const { error: uploadError } = await supabase.storage
+      .from("products-la-llave")
+      .upload(filePath, image);
 
-    if (error) {
-        console.error("Error al subir imagen:", error.message);
-        return;
-    }
-
-    // 3. Obtener la URL pública
-    const { data: signedUrlData, error: signedUrlError } = await supabase.storage
-        .from("products-la-llave") // <-- nombre de tu bucket
-        .createSignedUrl(fileName, 60 * 60);
-
-    if (signedUrlError) {
-      console.error("Error al generar URL firmada:", signedUrlError.message);
+    if (uploadError) {
+      console.error("Error al subir imagen:", uploadError.message);
       return;
     }
 
-    const imageUrl = signedUrlData.signedUrl;
-    //console.log('URL generada:', imageUrl);
+    // 3. Obtener la URL pública
+    const { data: publicUrlData } = supabase.storage
+      .from("products-la-llave")
+      .getPublicUrl(filePath);
+
+    const imageUrl = publicUrlData?.publicUrl;
+    //console.log("URL de la imagen:", imageUrl);
+
+    if (!imageUrl) {
+      console.error("No se pudo obtener la URL pública.");
+      return;
+    }
 
     // 4. Guardar en la tabla
     await onSave({

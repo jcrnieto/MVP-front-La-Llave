@@ -3,7 +3,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { useCallback } from 'react';
 
 const Carousel = ({ promotions, onAddToCart }) => {
-console.log('promotions', promotions);
+// console.log('promotions', promotions);
 
 const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
