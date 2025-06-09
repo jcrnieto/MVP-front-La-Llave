@@ -12,7 +12,6 @@ export default function SummaryModal({ visible, onClose, cart, total, payment, p
         return alert('Por favor completá tus datos personales antes de continuar.');
     }
 
-    // ✅ Agregamos los datos personales
     message += `\n\n🧾 Datos personales:\n`
     message += `👤 Nombre: ${personalData.fullName}\n`
     message += `📞 Teléfono: ${personalData.phone}\n`
@@ -21,14 +20,23 @@ export default function SummaryModal({ visible, onClose, cart, total, payment, p
     return encodeURIComponent(message)
   }
 
-  const whatsappLink = `https://wa.me/5493516468746?text=${generateMessage()}`
+  // const whatsappLink = `https://wa.me/5493516468746?text=${generateMessage()}`
+
+  const handleSend = () => {
+    const msg = generateMessage();
+    if (!msg) return; // Por si faltan datos
+
+    const link = `https://wa.me/5493516468746?text=${msg}`;
+    window.open(link, '_blank'); // Abre WhatsApp en nueva pestaña
+
+    onClose();
+    navigate('/admin');
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-lg p-6 w-11/12 max-w-md">
         <h2 className="text-lg font-bold mb-4">Resumen del pedido</h2>
-
-         {/* 🧾 Datos personales */}
         <div className="mb-4 text-sm text-gray-700 space-y-1">
             <p><strong>Nombre:</strong> {personalData.fullName}</p>
             <p><strong>Teléfono:</strong> {personalData.phone}</p>
@@ -45,14 +53,12 @@ export default function SummaryModal({ visible, onClose, cart, total, payment, p
         <p className="mb-4">Método de pago: {payment}</p>
         <div className="flex justify-between">
           <button onClick={onClose} className="text-gray-500">Cancelar</button>
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={handleSend}
             className="bg-orange-600 text-white px-4 py-2 rounded-lg font-bold"
           >
             Enviar por WhatsApp
-          </a>
+          </button>
         </div>
       </div>
     </div>
