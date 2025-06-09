@@ -1,14 +1,14 @@
 const ProductList = ({ products, cart, onChange }) => {
   return (
     <div className="p-4 space-y-4">
-      {products.map((product) => {
+      { products && products.map((product) => {
         const current = cart.find((p) => p.id === product.id)
         const quantity = current?.quantity || 0
 
         return (
           <div key={product.id} className="flex justify-between items-center border p-3 rounded-xl shadow-sm">
              <img
-                src={product.image}
+                src={product.image_url}
                 alt={product.name}
                 className="w-16 h-16 object-cover rounded-lg mr-4"
               />

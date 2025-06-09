@@ -3,6 +3,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { useCallback } from 'react';
 
 const Carousel = ({ promotions, onAddToCart }) => {
+console.log('promotions', promotions);
 
 const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
@@ -18,7 +19,7 @@ return (
             className="min-w-full flex flex-col items-center justify-center px-4 cursor-pointer"
             onClick={() => onAddToCart(promo)}
           >
-            <img src={promo.image} alt={promo.name} className="h-48 object-contain mb-2" />
+            <img src={promo.image_url} alt={promo.name} className="h-48 object-contain mb-2" />
             <h3 className="text-lg font-semibold">{promo.name}</h3>
             <p className="text-orange-600 font-medium">${promo.price}</p>
           </div>
